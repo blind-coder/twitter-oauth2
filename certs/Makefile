@@ -7,7 +7,7 @@ gateway.nopass.pem: gateway.pem
 	openssl rsa -in gateway.pem -out gateway.nopass.pem
 
 gateway.pub: gateway.nopass.pem
-	openssl x509 -in gateway.crt -pubkey -noout > gateway.pub
+	openssl rsa -in gateway.nopass.pem -pubout > gateway.pub
 
 all: gateway.pub
-	@echo "Done. Please use https://mkjwk.org/ to create a JWKS and put it in this directory as jwks.json"
+	@echo "Done. Please use https://russelldavies.github.io/jwk-creator/ to create a JWKS from gateway.pub (enter key id ("kid") 0) and put it in this directory as jwks.json"
