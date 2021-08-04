@@ -44,17 +44,17 @@ if (empty($auth)){
 }
 
 $auth = explode(" ", $auth);
-if ($auth[0] !== "Bearer"){
+if (strtolower($auth[0]) !== "bearer"){
 	echo "Invalid request";
 	exit();
 }
 
 $auth = $auth[1];
 
-/* Check if the code is valid */
+/* Check if the token is valid */
 require_once './lib/Member.php';
 $member = new Member();
-$memberData = $member->getUserByCode($auth)[0];
+$memberData = $member->getUserByAuthToken($auth)[0];
 if (empty($memberData)){
 	echo "Invalid code.";
 	exit();

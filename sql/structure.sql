@@ -10,9 +10,6 @@ CREATE TABLE `tbl_member` (
 	`screen_name` varchar(255) NOT NULL,
 	`create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`email` varchar(255) DEFAULT NULL,
-	`code` varchar(255) DEFAULT NULL,
-	`code_exp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-	`nonce` varchar(255) DEFAULT NULL,
 	PRIMARY KEY (`id`)
 );
 
