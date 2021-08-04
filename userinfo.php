@@ -31,7 +31,6 @@ if (array_key_exists("HTTP_AUTHORIZATION", $_SERVER)){
 }
 if (empty($auth)){
 	$headers = apache_request_headers();
-	error_log(var_export($headers, true));
 	if (array_key_exists("Authorization", $headers)){
 		$auth = $headers["Authorization"];
 	}
@@ -96,4 +95,3 @@ $token = [
 ];
 
 echo json_encode($token);
-error_log(json_encode($token));

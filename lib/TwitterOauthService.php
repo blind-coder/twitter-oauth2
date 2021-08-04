@@ -86,7 +86,6 @@ class TwitterOauthService
 		$oauthHeader = $this->generateOauthHeader($params);
 
 		$response = $this->curlHttp('POST', $url, $oauthHeader, $oauthPostData);
-		error_log("AccessToken: " . $response . "\n");
 
 		$responseVariables = array();
 		parse_str($response, $responseVariables);
@@ -127,7 +126,6 @@ class TwitterOauthService
 	{
 
 		$ch = curl_init();
-		error_log("Header: " . $oauthHeader . "\n");
 
 		$headers = array(
 			"Authorization: OAuth " . $oauthHeader
@@ -172,7 +170,6 @@ class TwitterOauthService
 
 		$baseString = $httpRequestMethod . "&" . rawurlencode($url) . "&" . $strParams;
 
-		error_log("Baaaase: " . $baseString . "\n");
 
 		$signKey = $this->generateSignatureKey($tokenSecret);
 		$oauthSignature = base64_encode(hash_hmac('sha1', $baseString, $signKey, true));

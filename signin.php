@@ -9,7 +9,6 @@ $oauthTokenSecret = $_SESSION["oauth_token_secret"];
 
 if (! empty($_GET["oauth_verifier"]) && ! empty($_GET["oauth_token"])) {
 	$userData = $TwitterOauthService->getUserData($_GET["oauth_verifier"], $_GET["oauth_token"], $oauthTokenSecret);
-	error_log(var_export($userData, true));
 	$userData = json_decode($userData, true);
 	if (! empty($userData)) {
 		$oauthId = $userData["id"];
@@ -24,7 +23,6 @@ if (! empty($_GET["oauth_verifier"]) && ! empty($_GET["oauth_token"])) {
 			$memberId = $member->insertMember($oauthId, $fullName, $screenName, $email);
 			$isMemberExists = $member->isExists($oauthId);
 		}
-		error_log(var_Export($isMemberExists, true));
 		$memberId = $isMemberExists[0]["id"];
 		if (! empty($memberId)) {
 			unset($_SESSION["oauth_token"]);
