@@ -1,0 +1,6 @@
+certs/gateway.crt
+certs/gateway.nopass.pem
+certs/gateway.pem
+certs/jwks.json
+etc/Config.php
+certs/gateway.pub
