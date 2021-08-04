@@ -15,14 +15,13 @@ if (! empty($_GET["oauth_verifier"]) && ! empty($_GET["oauth_token"])) {
         $oauthId = $userData["id"];
         $fullName = $userData["name"];
         $screenName = $userData["screen_name"];
-        $photoUrl = $userData["profile_image_url"];
         $email = $userData["email"];
 
         require_once './lib/Member.php';
         $member = new Member();
         $isMemberExists = $member->isExists($oauthId);
         if (empty($isMemberExists)) {
-            $memberId = $member->insertMember($oauthId, $fullName, $screenName, $photoUrl, $email);
+            $memberId = $member->insertMember($oauthId, $fullName, $screenName, $email);
 						$isMemberExists = $member->isExists($oauthId);
         }
 				error_log(var_Export($isMemberExists, true));

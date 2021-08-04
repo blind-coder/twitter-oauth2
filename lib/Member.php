@@ -4,7 +4,6 @@ namespace TwitterOAuth2;
 class Member {
 
     private $db;
-
     private $userTbl;
 
     function __construct()
@@ -24,16 +23,15 @@ class Member {
         return $result;
     }
 
-    function insertMember($oauthId, $fullName, $screenName, $photoUrl, $email)
+    function insertMember($oauthId, $fullName, $screenName, $email)
     {
-        $query = "INSERT INTO tbl_member (oauth_id, oauth_provider, full_name, screen_name, photo_url, email) values (?,?,?,?,?,?)";
+        $query = "INSERT INTO tbl_member (oauth_id, oauth_provider, full_name, screen_name, email) values (?,?,?,?,?)";
         $paramType = "ssssss";
         $paramArray = array(
             $oauthId,
             'twitter',
             $fullName,
             $screenName,
-						$photoUrl,
 						$email
         );
         $this->db->insert($query, $paramType, $paramArray);
