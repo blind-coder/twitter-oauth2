@@ -40,7 +40,7 @@ class Member {
 		function insertMember($oauthId, $fullName, $screenName, $email)
 		{
 				$query = "INSERT INTO tbl_member (oauth_id, oauth_provider, full_name, screen_name, email) values (?,?,?,?,?)";
-				$paramType = "ssssss";
+				$paramType = "sssss";
 				$paramArray = array(
 						$oauthId,
 						'twitter',
