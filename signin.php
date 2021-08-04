@@ -18,12 +18,12 @@ if (! empty($_GET["oauth_verifier"]) && ! empty($_GET["oauth_token"])) {
 
 		require_once './lib/Member.php';
 		$member = new Member();
-		$isMemberExists = $member->isExists($oauthId);
-		if (empty($isMemberExists)) {
+		$memberData = $member->isExists($oauthId);
+		if (empty($memberData)) {
 			$memberId = $member->insertMember($oauthId, $fullName, $screenName, $email);
-			$isMemberExists = $member->isExists($oauthId);
+			$memberData = $member->isExists($oauthId);
 		}
-		$memberId = $isMemberExists[0]["id"];
+		$memberId = $memberData[0]["id"];
 		if (! empty($memberId)) {
 			unset($_SESSION["oauth_token"]);
 			unset($_SESSION["oauth_token_secret"]);

@@ -3,16 +3,19 @@ namespace TwitterOAuth2;
 
 header("Content-Type: application/json");
 
-// Read configuration
-require_once __DIR__ . "/etc/Config.php";
-
-$CLIENT_ID = Config::CLIENT_ID;
-$CLIENT_SECRET = Config::CLIENT_SECRET;
-$ISSUER = Config::ISSUER;
+require_once __DIR__ . "/lib/OIDC.php";
+$OIDC = new OIDC();
 
 /* Check for valid authorization header */
-if ($CLIENT_ID !== $_POST["client_id"] && $CLIENT_SECRET !== $_POST["client_secret"]){
-	echo "Invalid request\n";
+if (!(array_key_exists("client_id", $_POST) && array_key_exists("client_secret", $_POST))){
+	http_response_code(400);
+	echo json_encode(["error" => "invalid_request"]);
+	exit();
+}
+
+if (!$OIDC->verifyClient($_POST["client_id"], $_POST["client_secret"])){
+	http_response_code(400);
+	echo json_encode(["error" => "invalid_request"]);
 	exit();
 }
 
@@ -21,10 +24,12 @@ require_once './lib/Member.php';
 $member = new Member();
 $memberData = $member->getUserByCode($_POST["code"])[0];
 if (empty($memberData)){
-	echo "Invalid code.";
+	http_response_code(400);
+	echo json_encode(["error" => "invalid or expired code"]);
 	exit();
 }
 
+/* Get a new access token and return it */
 $accessToken = $member->getAccessToken($memberData["id"]);
 
 $token = [
@@ -33,7 +38,7 @@ $token = [
 	"expires_in" => 3600,
 ];
 
-/* Code is valid, invalidate it now */
+/* Code is used up, invalidate it now */
 $member->invalidateCode($_POST["code"]);
 
 echo json_encode($token);
