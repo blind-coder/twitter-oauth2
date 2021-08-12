@@ -67,6 +67,11 @@ class OIDC {
 				'iss' => $this->ISSUER,
 				'aud' => $this->CLIENT_ID,
 				'iat' => time(),
+				'firstName' => $firstname,
+				'lastName' => $lastname,
+				'displayName' => $memberData["full_name"],
+				'twitter_handle' => $memberData["screen_name"],
+				'email' => $memberData["email"],
 				'kid' => 0,
 			];
 			if (array_key_exists("nonce", $memberData) && !empty($memberData["nonce"])){
@@ -85,10 +90,17 @@ class OIDC {
 			$token = "$headers_encoded.$payload_encoded.$signature_encoded";
 
 			/* Construct userinfo token */
+			$name = explode(" ", $memberData["full_name"]);
+			$lastname = array_pop($name);
+			$firstname = implode(" ", $name);
 			$token = [
 				'sub' => $memberData["email"],
 				'iss' => $this->ISSUER,
 				'aud' => $this->CLIENT_ID,
+				'firstName' => $firstname,
+				'lastName' => $lastname,
+				'displayName' => $memberData["full_name"],
+				'twitter_handle' => $memberData["screen_name"],
 				'email' => $memberData["email"],
 				'id_token' => $token
 			];
