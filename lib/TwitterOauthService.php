@@ -201,6 +201,9 @@ class TwitterOauthService
 
 	public function cryptoRandSecure($min, $max)
 	{
+		if (function_exists(random_int)){
+			return random_int($min, $max);
+		}
 		$range = $max - $min;
 		if ($range < 1) {
 			return $min; // not so random...
