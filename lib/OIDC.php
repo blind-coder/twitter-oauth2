@@ -83,7 +83,11 @@ class OIDC {
 			$key = file_get_contents($this->KEYFILE);
 
 			/* Sign JWT */
-			openssl_sign("$headers_encoded.$payload_encoded", $signature, openssl_get_privatekey($key), 'sha256WithRSAEncryption'); 
+			if ($this->KEYPHRASE == null || $this->KEYPHRASE === ""){
+				openssl_sign("$headers_encoded.$payload_encoded", $signature, openssl_pkey_get_private($key), 'sha256WithRSAEncryption'); 
+			} else {
+				openssl_sign("$headers_encoded.$payload_encoded", $signature, openssl_pkey_get_private($key, $this->KEYPHRASE), 'sha256WithRSAEncryption'); 
+			}
 			$signature_encoded = $this->base64url_encode($signature);
 
 			/* Create and return JWT */

@@ -28,6 +28,8 @@ class Config
 
 	// Keyfile is the secret key to use. Must not be password protected. Must be readable by PHP / Webserver
 	const KEYFILE = "certs/gateway.nopass.pem";
+	// KEYPHRASE is the passphrase for the private. If it is null or the empty string, it's not used
+	const KEYPHRASE = null;
 
 	// Upstream redirect URI
 	// You will get this from your OAuth2 Client
