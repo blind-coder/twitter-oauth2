@@ -18,7 +18,7 @@ class Config
 
 	// My Client ID and Secret
 	// These next two can be anything, really, but should be sufficiently long, random strings.
-	// Client ID creation example:     strings /dev/urandom | head -n 256 | mh5sum
+	// Client ID creation example:     strings /dev/urandom | head -n 256 | md5sum
 	// Client Secret creation example: strings /dev/urandom | head -n 256 | sha256sum
 	const CLIENT_ID = "xxx";
 	const CLIENT_SECRET = "xxx";
