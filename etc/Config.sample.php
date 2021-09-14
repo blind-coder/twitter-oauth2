@@ -27,6 +27,7 @@ class Config
 	const ISSUER = "Twitter / OAuth2.0 Gateway";
 
 	// Keyfile is the secret key to use. Must not be password protected. Must be readable by PHP / Webserver
+	// !!! MUST ABSOLUTELY NOT BE ACCESSIBLE BY A WEB BROWSER !!!
 	const KEYFILE = "certs/gateway.nopass.pem";
 	// KEYPHRASE is the passphrase for the private. If it is null or the empty string, it's not used
 	const KEYPHRASE = null;
